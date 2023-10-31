@@ -36,12 +36,30 @@ public class Paciente {
 	@Embedded
 	private Endereco endereco;
 	
+	private Boolean ativo;
+	
 	public Paciente(DadosPaciente dPaciente) {
 		this.cpf = dPaciente.cpf();
 		this.email = dPaciente.email();
 		this.endereco = new Endereco(dPaciente.endereco());
 		this.nome = dPaciente.nome();
 		this.telefone = dPaciente.telefone();
+		this.ativo = true;
+	}
+
+
+	public void alterarDadosPaciente(DadosAlteracaoPaciente dPaciente) {
+		if(dPaciente.nome() != null)
+			this.nome  = dPaciente.nome();
+		if(dPaciente.telefone() != null)
+			this.telefone = dPaciente.telefone();
+		if(dPaciente.endereco() != null)
+			this.endereco.atualizarInformacoes(dPaciente.endereco());
+	}
+
+
+	public void excluir() {
+		this.ativo = false;
 	}
 
 }
